@@ -1,3 +1,3 @@
 ```
-cd ax-av && crave run --no-patch -- "curl https://gitlab.com/pure-soul-kk/scripts/raw/ax-av/build.sh | bash"
+cd $rom && crave run --no-patch -- "curl https://raw.githubusercontent.com/zackyape/script/refs/heads/rom/build.sh | bash"
 ```
