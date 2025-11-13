@@ -18,7 +18,7 @@ echo "=================="
 echo "Repo init success"
 echo "=================="
 #clone local
-git clone https://github.com/zackyape/scripts -b arrow .repo/local_manifests
+git clone https://github.com/zackyape/script -b arrow .repo/local_manifests
 git clone https://github.com/kdrag0n/proton-clang --depth 1  prebuilts/clang/host/linux-x86/clang-proton
 git clone https://github.com/TogoFire/packages_apps_ViPER4AndroidFX.git -b v4a packages/apps/ViPER4AndroidFX
 echo "=================="
