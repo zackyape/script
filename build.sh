@@ -4,8 +4,8 @@
 rm -rf .repo/local_manifests
 
 #sync
-repo init -u https://github.com/AxionAOSP/android.git -b lineage-23.0 --git-lfs --depth=1
-git clone https://gitlab.com/pure-soul-kk/scripts -b ax-av .repo/local_manifests
+repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1_ext --git-lfs --depth=1
+git clone https://github.com/zackyape/scripts -b arrow .repo/local_manifests
 if [ -f /opt/crave/resync.sh ]; then
   /opt/crave/resync.sh
 else
@@ -16,11 +16,11 @@ fi
 # rm -rf vendor/lineage-priv/keys
 # git clone --depth=1 https://github.com/pure-soul-kk/keys vendor/lineage-priv/keys
 
-export BUILD_USERNAME=krishna
+export BUILD_USERNAME=zsheesh
 export BUILD_HOSTNAME=crave
 
 #build
 . build/envsetup.sh
-axion avalon user gms
+lunch arrow_vayu-user
 mka installclean
-ax -b
+m bacon
