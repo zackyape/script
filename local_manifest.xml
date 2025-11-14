@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
   <remote name="me" fetch="https://github.com/zackyape"/>
-  <remote name="arrow" fetch="https://github.com/arrowos-devices"/>
+  <remote name="vayu" fetch="https://github.com/arrowos-devices"/>
   <remote name="bagaskara815" fetch="https://github.com/bagaskara815"/>
   <remote name="xiaomi-sm8150-devs" fetch="https://github.com/xiaomi-sm8150-devs"/>
   
@@ -43,7 +43,7 @@
   
   <project path="hardware/xiaomi"
            name="android_hardware_xiaomi"
-           remote="arrow"
+           remote="vayu"
            revision="arrow-13.1" />
 
   <project path="hardware/qcom-caf/sm8150/audio" name="arrowos/android_hardware_qcom_audio" groups="qcom,qcom_audio" remote="github" revision="arrow-13.1-caf-sm8150" />
