@@ -6,7 +6,6 @@ rm -rf .repo/local_manifests
 # Remove tree
 rm -rf prebuilts/clang/host/linux-x86
 rm -rf device/xiaomi/vayu
-rm -rf device/xiaomi/sm8150-common
 rm -rf hardware/xiaomi
 rm -rf vendor/xiaomi/vayu
 rm -rf vendor/xiaomi/sm8150-common
@@ -51,6 +50,6 @@ export BUILD_HOSTNAME=crave
 #build
 make clean
 . build/envsetup.sh
-lunch arrow_vayu-user
+lunch arrow_vayu-userdebug
 mka installclean
 m bacon
