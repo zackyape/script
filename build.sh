@@ -38,10 +38,15 @@ echo "=================="
 # rm -rf vendor/lineage-priv/keys
 # git clone --depth=1 https://github.com/pure-soul-kk/keys vendor/lineage-priv/keys
 
+#some stuffs
+sed -i 's/preprocessed: true,/\/\/ preprocessed: true, \/\/ Removed - unsupported/' \
+    packages/apps/ViPER4AndroidFX/Android.bp
+
 export BUILD_USERNAME=zsheesh
 export BUILD_HOSTNAME=crave
 
 #build
+make clean
 . build/envsetup.sh
 lunch arrow_vayu-user
 mka installclean
