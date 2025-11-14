@@ -6,9 +6,12 @@ rm -rf .repo/local_manifests
 # Remove tree
 rm -rf prebuilts/clang/host/linux-x86
 rm -rf device/xiaomi/vayu
+rm -rf device/xiaomi/sm8150-common
 rm -rf hardware/xiaomi
 rm -rf vendor/xiaomi/vayu
+rm -rf vendor/xiaomi/sm8150-common
 rm -rf kernel/xiaomi/vayu
+rm -rf kernel/xiaomi/sm8150
 rm -rf vendor/xiaomi/vayu-miuicamera
 rm -rf packages/apps/ViPER4AndroidFX
 
