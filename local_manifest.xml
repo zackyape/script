@@ -17,24 +17,14 @@
            revision="main" clone-depth="1"/> 
   
   <project path="vendor/xiaomi/vayu"
-           name="proprietary_vendor_xiaomi_vayu"
-           remote="xiaomi-sm8150-devs"
-           revision="lineage-20" clone-depth="1" />
-           
-  <project path="vendor/xiaomi/sm8150-common"
-           name="proprietary_vendor_xiaomi_sm8150-common"
-           remote="xiaomi-sm8150-devs"
-           revision="lineage-20" clone-depth="1" />
+           name="android_vendor_xiaomi_vayu"
+           remote="vayu"
+           revision="arrow-13.1" clone-depth="1" />
   
   <project path="kernel/xiaomi/vayu"
            name="android_kernel_xiaomi_vayu"
-           remote="xiaomi-sm8150-devs"
-           revision="lineage-20" clone-depth="1" />
-  
-  <project path="kernel/xiaomi/sm8150"
-           name="android_kernel_xiaomi_sm8150"
-           remote="xiaomi-sm8150-devs"
-           revision="lineage-22.2" clone-depth="1" />
+           remote="vayu"
+           revision="arrow-13.1" clone-depth="1" />
   
   <project path="hardware/xiaomi"
            name="android_hardware_xiaomi"
