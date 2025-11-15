@@ -4,13 +4,11 @@
 rm -rf .repo/local_manifests
 
 # Remove tree
-rm -rf prebuilts/clang/host/linux-x86
+rm -rf prebuilts/clang/host/linux-x86/clang-proton
 rm -rf device/xiaomi/vayu
 rm -rf hardware/xiaomi
 rm -rf vendor/xiaomi/vayu
-rm -rf vendor/xiaomi/sm8150-common
 rm -rf kernel/xiaomi/vayu
-rm -rf kernel/xiaomi/sm8150
 rm -rf vendor/xiaomi/vayu-miuicamera
 rm -rf packages/apps/ViPER4AndroidFX
 
@@ -21,7 +19,6 @@ echo "Repo init success"
 echo "=================="
 #clone local
 git clone https://github.com/zackyape/script -b arrow .repo/local_manifests
-git clone https://github.com/kdrag0n/proton-clang --depth 1  prebuilts/clang/host/linux-x86/clang-proton
 git clone https://github.com/TogoFire/packages_apps_ViPER4AndroidFX.git -b v4a packages/apps/ViPER4AndroidFX
 echo "=================="
 echo "Local manifests clone success"
