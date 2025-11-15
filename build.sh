@@ -81,6 +81,65 @@ sudo ldconfig
 ls -la "$LIBDIRNCURSES/libncurses.so.5"
 ls -la "$LIBDIRTINFO/libtinfo.so.5"
 
+# SELinux Duplicate Attribute Fix Script
+# Fixes duplicate hal_misys declaration in Xiaomi MIUI Camera sepolicy
+
+set -e
+
+SEPOLICY_FILE="vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
+BACKUP_FILE="${SEPOLICY_FILE}.backup"
+ATTRIBUTE_NAME="hal_misys"
+
+echo "=========================================="
+echo "SELinux Duplicate Attribute Fixer"
+echo "=========================================="
+echo ""
+
+# Check if running from Android source root
+if [ ! -d "vendor" ] || [ ! -d "system/sepolicy" ]; then
+    echo "ERROR: This script must be run from the Android source root directory"
+    exit 1
+fi
+
+# Check if the problematic file exists
+if [ ! -f "$SEPOLICY_FILE" ]; then
+    echo "ERROR: File not found: $SEPOLICY_FILE"
+    exit 1
+fi
+
+echo "[1/4] Searching for duplicate declarations of '$ATTRIBUTE_NAME'..."
+echo ""
+
+# Find all declarations
+echo "Declarations found:"
+grep -rn "attribute $ATTRIBUTE_NAME" vendor/ device/ system/sepolicy/ 2>/dev/null || true
+echo ""
+
+# Create backup
+echo "[2/4] Creating backup..."
+cp "$SEPOLICY_FILE" "$BACKUP_FILE"
+echo "Backup created: $BACKUP_FILE"
+echo ""
+
+# Check if attribute exists in the file
+if grep -q "attribute $ATTRIBUTE_NAME" "$SEPOLICY_FILE"; then
+    echo "[3/4] Fixing duplicate declaration in $SEPOLICY_FILE..."
+    
+    # Comment out the duplicate line
+    sed -i "s/^attribute $ATTRIBUTE_NAME;/# attribute $ATTRIBUTE_NAME; # Commented out - duplicate declaration/g" "$SEPOLICY_FILE"
+    
+    echo "Fixed! The line has been commented out."
+    echo ""
+    
+    # Show the change
+    echo "Modified content:"
+    grep -n "$ATTRIBUTE_NAME" "$SEPOLICY_FILE" || echo "No active declaration found (successfully commented)"
+    echo ""
+else
+    echo "[3/4] No '$ATTRIBUTE_NAME' declaration found in $SEPOLICY_FILE"
+    echo "The duplicate might be elsewhere. Check the search results above."
+    echo ""
+fi
 
 #build
 make clean
