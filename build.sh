@@ -130,16 +130,6 @@ if grep -q "attribute $ATTRIBUTE_NAME" "$SEPOLICY_FILE"; then
     
     echo "Fixed! The line has been commented out."
     echo ""
-    
-    # Show the change
-    echo "Modified content:"
-    grep -n "$ATTRIBUTE_NAME" "$SEPOLICY_FILE" || echo "No active declaration found (successfully commented)"
-    echo ""
-else
-    echo "[3/4] No '$ATTRIBUTE_NAME' declaration found in $SEPOLICY_FILE"
-    echo "The duplicate might be elsewhere. Check the search results above."
-    echo ""
-fi
 
 #build
 make clean
