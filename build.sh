@@ -107,7 +107,7 @@ if [ ! -f "$SEPOLICY_FILE" ]; then
     exit 1
 fi
 
-echo "[1/4] Searching for duplicate declarations of '$ATTRIBUTE_NAME'..."
+echo "[1/3] Searching for duplicate declarations of '$ATTRIBUTE_NAME'..."
 echo ""
 
 # Find all declarations
@@ -116,20 +116,33 @@ grep -rn "attribute $ATTRIBUTE_NAME" vendor/ device/ system/sepolicy/ 2>/dev/nul
 echo ""
 
 # Create backup
-echo "[2/4] Creating backup..."
+echo "[2/3] Creating backup..."
 cp "$SEPOLICY_FILE" "$BACKUP_FILE"
 echo "Backup created: $BACKUP_FILE"
 echo ""
 
 # Check if attribute exists in the file
-if grep -q "attribute $ATTRIBUTE_NAME" "$SEPOLICY_FILE"; then
-    echo "[3/4] Fixing duplicate declaration in $SEPOLICY_FILE..."
+if grep -q "attribute hal_misys" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"; then
+    echo "[3/3] Fixing duplicate declaration in $SEPOLICY_FILE..."
     
     # Comment out the duplicate line
     sed -i "s/^attribute $ATTRIBUTE_NAME;/# attribute $ATTRIBUTE_NAME; # Commented out - duplicate declaration/g" "$SEPOLICY_FILE"
     
     echo "Fixed! The line has been commented out."
     echo ""
+# Show the change
+    echo "Modified content:"
+    grep -n "$ATTRIBUTE_NAME" "$SEPOLICY_FILE" || echo "No active declaration found (successfully commented)"
+    echo ""
+else
+    echo "[3/3] No '$ATTRIBUTE_NAME' declaration found in $SEPOLICY_FILE"
+    echo "The duplicate might be elsewhere. Check the search results above."
+    echo ""
+fi
+echo "=========================================="
+echo "Fix Complete!"
+echo "=========================================="
+echo ""
 
 #build
 make clean
