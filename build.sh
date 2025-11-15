@@ -47,6 +47,30 @@ sed -i 's/preprocessed: true,/\/\/ preprocessed: true, \/\/ Removed - unsupporte
 export BUILD_USERNAME=zsheesh
 export BUILD_HOSTNAME=crave
 
+# Cari file libncurses
+LIBNCURSES=$(find /usr/lib /lib /usr/local/lib -name "libncurses.so.6*" 2>/dev/null | head -n 1)
+
+if [ -z "$LIBNCURSES" ]; then
+    echo "libncurses.so.6 tidak ditemukan!"
+    exit 1
+fi
+
+echo "Ditemukan: $LIBNCURSES"
+
+# Dapatkan direktori
+LIBDIR=$(dirname "$LIBNCURSES")
+
+# Buat symlink
+sudo ln -sf "$LIBNCURSES" "$LIBDIR/libncurses.so.5"
+
+echo "Symlink dibuat: $LIBDIR/libncurses.so.5 -> $LIBNCURSES"
+
+# Update ldconfig
+sudo ldconfig
+
+# Verifikasi
+ls -la "$LIBDIR/libncurses.so.5"
+
 #build
 make clean
 . build/envsetup.sh
