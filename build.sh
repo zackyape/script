@@ -4,7 +4,6 @@
 rm -rf .repo/local_manifests
 
 # Remove tree
-rm -rf prebuilts/clang/host/linux-x86/clang-proton
 rm -rf device/xiaomi/vayu
 rm -rf hardware/xiaomi
 rm -rf vendor/xiaomi/vayu
@@ -46,6 +45,7 @@ export BUILD_HOSTNAME=crave
 
 # Cari file libncurses
 LIBNCURSES=$(find /usr/lib /lib /usr/local/lib -name "libncurses.so.6*" 2>/dev/null | head -n 1)
+LIBTINFO=$(find /usr/lib /lib /usr/local/lib -name "libtinfo.so.6*" 2>/dev/null | head -n 1)
 
 if [ -z "$LIBNCURSES" ]; then
     echo "libncurses.so.6 tidak ditemukan!"
@@ -54,19 +54,33 @@ fi
 
 echo "Ditemukan: $LIBNCURSES"
 
+if [ -z "$LIBTINFO" ]; then
+    echo "libtinfo.so.6 tidak ditemukan!"
+    exit 1
+fi
+
+echo "Ditemukan: $LIBTINFO"
+
 # Dapatkan direktori
-LIBDIR=$(dirname "$LIBNCURSES")
+LIBDIRNCURSES=$(dirname "$LIBNCURSES")
+LIBDIRTINFO=$(dirname "$LIBTINFO")
 
 # Buat symlink
-sudo ln -sf "$LIBNCURSES" "$LIBDIR/libncurses.so.5"
+sudo ln -sf "$LIBNCURSES" "$LIBDIRNCURSES/libncurses.so.5"
 
-echo "Symlink dibuat: $LIBDIR/libncurses.so.5 -> $LIBNCURSES"
+echo "Symlink dibuat: $LIBDIRNCURSES/libncurses.so.5 -> $LIBNCURSES"
+
+sudo ln -sf "$LIBTINFO" "$LIBDIRTINFO/libtinfo.so.5"
+
+echo "Symlink dibuat: $LIBDIRTINFO/libtinfo.so.5 -> $LIBTINFO"
 
 # Update ldconfig
 sudo ldconfig
 
 # Verifikasi
-ls -la "$LIBDIR/libncurses.so.5"
+ls -la "$LIBDIRNCURSES/libncurses.so.5"
+ls -la "$LIBDIRTINFO/libtinfo.so.5"
+
 
 #build
 make clean
