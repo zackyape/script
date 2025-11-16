@@ -101,9 +101,6 @@ echo ""
 
 # SELinux Duplicate Declaration Fixer
 # This script finds and fixes duplicate type/attribute declarations in Android SELinux policies
-
-set -e
-
 ANDROID_ROOT="/tmp/src/android"
 BACKUP_DIR="${ANDROID_ROOT}/sepolicy_backups_$(date +%Y%m%d_%H%M%S)"
 
