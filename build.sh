@@ -95,8 +95,10 @@ sed -i "s/^attribute hal_misys_client;/# attribute hal_misys_client; # Commented
 grep -q "attribute hal_misys_server" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
 sed -i "s/^attribute hal_misys_server;/# attribute hal_misys_server; # Commented out - duplicate declaration/g" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
 
-sed -i 's/^type hal_misys_default, domain;/# DUPLICATE - type hal_misys_default, domain; # Declared elsewhere/' "device/xiaomi/vayu/sepolicy/vendor/hal_misys_default.te"
-sed -i 's/^type hal_misys_default_exec, exec_type, vendor_file_type, file_type;/# DUPLICATE - type hal_misys_default_exec, exec_type, vendor_file_type, file_type; # Declared elsewhere/' "device/xiaomi/vayu/sepolicy/vendor/hal_misys_default.te"
+sed -i "s/^type hal_misys_default, domain;/# DUPLICATE - type hal_misys_default, domain; # Declared elsewhere/" "device/xiaomi/vayu/sepolicy/vendor/hal_misys_default.te"
+sed -i "s/^type hal_misys_default_exec, exec_type, vendor_file_type, file_type;/# DUPLICATE - type hal_misys_default_exec, exec_type, vendor_file_type, file_type; # Declared elsewhere/" "device/xiaomi/vayu/sepolicy/vendor/hal_misys_default.te"
+
+sed -i "s/^type hal_camerapostproc_xiaomi_hwservice, hwservice_manager_type;/# DUPLICATE - type hal_camerapostproc_xiaomi_hwservice, hwservice_manager_type; # Declared elsewhere/" "device/xiaomi/sepolicy/vendor/hwservice.te"
 
 echo "=========================================="
 echo "Fix Complete!"
