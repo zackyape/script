@@ -145,7 +145,6 @@ echo "=========================================="
 echo ""
 
 #build
-make clean
 . build/envsetup.sh
 lunch arrow_vayu-userdebug
 mka installclean
