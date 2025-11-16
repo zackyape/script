@@ -88,6 +88,12 @@ echo ""
 grep -q "attribute hal_misys" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
 sed -i "s/^attribute hal_misys;/# attribute hal_misys; # Commented out - duplicate declaration/g" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
 
+grep -q "attribute hal_misys_client" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
+sed -i "s/^attribute hal_misys_client;/# attribute hal_misys_client; # Commented out - duplicate declaration/g" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
+
+grep -q "attribute hal_misys_server" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
+sed -i "s/^attribute hal_misys_server;/# attribute hal_misys_server; # Commented out - duplicate declaration/g" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
+
 echo "=========================================="
 echo "Fix Complete!"
 echo "=========================================="
