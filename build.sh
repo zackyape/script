@@ -40,9 +40,6 @@ echo "=================="
 sed -i 's/preprocessed: true,/\/\/ preprocessed: true, \/\/ Removed - unsupported/' \
     packages/apps/ViPER4AndroidFX/Android.bp
 
-export BUILD_USERNAME=zsheesh
-export BUILD_HOSTNAME=crave
-
 # Cari file libncurses
 LIBNCURSES=$(find /usr/lib /lib /usr/local/lib -name "libncurses.so.6*" 2>/dev/null | head -n 1)
 LIBTINFO=$(find /usr/lib /lib /usr/local/lib -name "libtinfo.so.6*" 2>/dev/null | head -n 1)
@@ -83,66 +80,21 @@ ls -la "$LIBDIRTINFO/libtinfo.so.5"
 
 # SELinux Duplicate Attribute Fix Script
 # Fixes duplicate hal_misys declaration in Xiaomi MIUI Camera sepolicy
-
-set -e
-
-SEPOLICY_FILE="vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
-BACKUP_FILE="${SEPOLICY_FILE}.backup"
-ATTRIBUTE_NAME="hal_misys"
-
 echo "=========================================="
 echo "SELinux Duplicate Attribute Fixer"
 echo "=========================================="
 echo ""
 
-# Check if running from Android source root
-if [ ! -d "vendor" ] || [ ! -d "system/sepolicy" ]; then
-    echo "ERROR: This script must be run from the Android source root directory"
-    exit 1
-fi
+grep -q "attribute hal_misys" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
+sed -i "s/^attribute hal_misys;/# attribute hal_misys; # Commented out - duplicate declaration/g" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
 
-# Check if the problematic file exists
-if [ ! -f "$SEPOLICY_FILE" ]; then
-    echo "ERROR: File not found: $SEPOLICY_FILE"
-    exit 1
-fi
-
-echo "[1/3] Searching for duplicate declarations of '$ATTRIBUTE_NAME'..."
-echo ""
-
-# Find all declarations
-echo "Declarations found:"
-grep -rn "attribute $ATTRIBUTE_NAME" vendor/ device/ system/sepolicy/ 2>/dev/null || true
-echo ""
-
-# Create backup
-echo "[2/3] Creating backup..."
-cp "$SEPOLICY_FILE" "$BACKUP_FILE"
-echo "Backup created: $BACKUP_FILE"
-echo ""
-
-# Check if attribute exists in the file
-if grep -q "attribute hal_misys" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"; then
-    echo "[3/3] Fixing duplicate declaration in $SEPOLICY_FILE..."
-    
-    # Comment out the duplicate line
-    sed -i "s/^attribute $ATTRIBUTE_NAME;/# attribute $ATTRIBUTE_NAME; # Commented out - duplicate declaration/g" "$SEPOLICY_FILE"
-    
-    echo "Fixed! The line has been commented out."
-    echo ""
-# Show the change
-    echo "Modified content:"
-    grep -n "$ATTRIBUTE_NAME" "$SEPOLICY_FILE" || echo "No active declaration found (successfully commented)"
-    echo ""
-else
-    echo "[3/3] No '$ATTRIBUTE_NAME' declaration found in $SEPOLICY_FILE"
-    echo "The duplicate might be elsewhere. Check the search results above."
-    echo ""
-fi
 echo "=========================================="
 echo "Fix Complete!"
 echo "=========================================="
 echo ""
+
+export BUILD_USERNAME=zsheesh
+export BUILD_HOSTNAME=crave
 
 #build
 . build/envsetup.sh
