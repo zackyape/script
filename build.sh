@@ -16,7 +16,7 @@ echo "Remove old config success"
 echo "=================="
 
 #init
-repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1_ext --git-lfs --depth=1
+repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1_ext --depth=1
 echo "=================="
 echo "Repo init success"
 echo "=================="
