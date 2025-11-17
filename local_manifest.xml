@@ -7,8 +7,8 @@
   
   <!--Trees-->
   <project path="device/xiaomi/vayu"
-           name="android_device_xiaomi_vayu_arrow"
-           remote="me"
+           name="android_device_xiaomi_vayu"
+           remote="vayu"
            revision="arrow-13.1" clone-depth="1"/> 
   
   <project path="vendor/xiaomi/vayu"
