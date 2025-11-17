@@ -8,9 +8,7 @@ rm -rf device/xiaomi/vayu
 rm -rf hardware/xiaomi
 rm -rf vendor/xiaomi/vayu
 rm -rf kernel/xiaomi/vayu
-rm -rf vendor/xiaomi/vayu-miuicamera
 rm -rf packages/apps/ViPER4AndroidFX
-rm -rf sepolicy_backups_20251116_092239
 
 #init
 repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1_ext --git-lfs --depth=1
