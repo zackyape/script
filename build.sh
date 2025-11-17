@@ -10,6 +10,10 @@ rm -rf vendor/xiaomi/vayu
 rm -rf kernel/xiaomi/vayu
 rm -rf packages/apps/ViPER4AndroidFX
 
+echo "=================="
+echo "Remove old config success"
+echo "=================="
+
 #init
 repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1_ext --git-lfs --depth=1
 echo "=================="
