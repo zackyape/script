@@ -4,6 +4,7 @@
 rm -rf .repo/local_manifests
 
 # Remove tree
+rm -rf out
 rm -rf device/xiaomi/vayu
 rm -rf hardware/xiaomi
 rm -rf vendor/xiaomi/vayu
