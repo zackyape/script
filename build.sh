@@ -79,38 +79,11 @@ sudo ldconfig
 ls -la "$LIBDIRNCURSES/libncurses.so.5"
 ls -la "$LIBDIRTINFO/libtinfo.so.5"
 
-# SELinux Duplicate Attribute Fix Script
-# Fixes duplicate hal_misys declaration in Xiaomi MIUI Camera sepolicy
-echo "=========================================="
-echo "SELinux Duplicate Attribute Fixer"
-echo "=========================================="
-echo ""
-
-grep -q "attribute hal_misys" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
-sed -i "s/^attribute hal_misys;/# attribute hal_misys; # Commented out - duplicate declaration/g" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
-
-grep -q "attribute hal_misys_client" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
-sed -i "s/^attribute hal_misys_client;/# attribute hal_misys_client; # Commented out - duplicate declaration/g" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
-
-grep -q "attribute hal_misys_server" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
-sed -i "s/^attribute hal_misys_server;/# attribute hal_misys_server; # Commented out - duplicate declaration/g" "vendor/xiaomi/vayu-miuicamera/sepolicy/vendor/attributes"
-
-sed -i "s/^type hal_misys_default, domain;/# DUPLICATE - type hal_misys_default, domain; # Declared elsewhere/" "device/xiaomi/vayu/sepolicy/vendor/hal_misys_default.te"
-sed -i "s/^type hal_misys_default_exec, exec_type, vendor_file_type, file_type;/# DUPLICATE - type hal_misys_default_exec, exec_type, vendor_file_type, file_type; # Declared elsewhere/" "device/xiaomi/vayu/sepolicy/vendor/hal_misys_default.te"
-
-sed -i "s/^type hal_camerapostproc_xiaomi_hwservice, hwservice_manager_type;/# DUPLICATE - type hal_camerapostproc_xiaomi_hwservice, hwservice_manager_type; # Declared elsewhere/" "device/xiaomi/vayu/sepolicy/vendor/hwservice.te"
-
-sed -i "s/^type hal_misys_hwservice, hwservice_manager_type;/# DUPLICATE - type hal_misys_hwservice, hwservice_manager_type; # Declared elsewhere/" "device/xiaomi/vayu/sepolicy/vendor/hwservice.te"
-
-echo "=========================================="
-echo "Fix Complete!"
-echo "=========================================="
-echo ""
-
 export BUILD_USERNAME=zsheesh
 export BUILD_HOSTNAME=crave
 
 #build
+make clean
 . build/envsetup.sh
 lunch arrow_vayu-userdebug
 mka installclean
