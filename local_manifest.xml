@@ -10,11 +10,6 @@
            name="android_device_xiaomi_vayu_arrow"
            remote="me"
            revision="arrow-13.1" clone-depth="1"/> 
-
-    <project path="vendor/xiaomi/vayu-miuicamera"
-           name="vendor_xiaomi_vayu-miuicamera"
-           remote="bagaskara815"
-           revision="main" clone-depth="1"/> 
   
   <project path="vendor/xiaomi/vayu"
            name="android_vendor_xiaomi_vayu"
