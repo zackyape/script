@@ -100,6 +100,8 @@ sed -i "s/^type hal_misys_default_exec, exec_type, vendor_file_type, file_type;/
 
 sed -i "s/^type hal_camerapostproc_xiaomi_hwservice, hwservice_manager_type;/# DUPLICATE - type hal_camerapostproc_xiaomi_hwservice, hwservice_manager_type; # Declared elsewhere/" "device/xiaomi/vayu/sepolicy/vendor/hwservice.te"
 
+sed -i "s/^type hal_misys_hwservice, hwservice_manager_type;/# DUPLICATE - type hal_misys_hwservice, hwservice_manager_type; # Declared elsewhere/" "device/xiaomi/vayu/sepolicy/vendor/hwservice.te"
+
 echo "=========================================="
 echo "Fix Complete!"
 echo "=========================================="
