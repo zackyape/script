@@ -85,7 +85,6 @@ export BUILD_USERNAME=zsheesh
 export BUILD_HOSTNAME=crave
 
 #build
-make clean
 . build/envsetup.sh
 lunch arrow_vayu-userdebug
 mka installclean
