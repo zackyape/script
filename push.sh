@@ -12,25 +12,56 @@ CAPTION=""  # opsional, boleh dikosongkan
 # ============================
 
 
-# --- Pastikan Python & pip tersedia ---
-if ! command -v python3 &> /dev/null; then
-    echo "Python3 tidak ditemukan. Install dulu."
-    exit 1
+echo "[INFO] Mengecek Python & pip..."
+
+# --- Cari command pip, pip3, python3 -m pip ---
+if command -v pip3 &>/dev/null; then
+    PIPCMD="pip3"
+elif command -v pip &>/dev/null; then
+    PIPCMD="pip"
+else
+    echo "[INFO] pip tidak ditemukan. Menginstall pip terlebih dahulu..."
+
+    # Install pip dari bootstrap resmi
+    curl -sS https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+    python3 /tmp/get-pip.py
+
+    if command -v pip3 &>/dev/null; then
+        PIPCMD="pip3"
+    elif command -v pip &>/dev/null; then
+        PIPCMD="pip"
+    else
+        echo "[ERROR] pip gagal dipasang."
+        exit 1
+    fi
 fi
 
-# --- Install Telethon jika belum ada ---
-echo "[INFO] Mengecek Telethon..."
-python3 - << 'EOF'
-import pkgutil
+echo "[INFO] pip ditemukan: $PIPCMD"
+
+
+# --- Install Telethon jika belum ada (pakai importlib) ---
+python3 - << EOF
+import importlib.util
 import subprocess
-if not pkgutil.find_loader("telethon"):
-    print("[INFO] Telethon belum terpasang. Menginstall...")
-    subprocess.check_call(["pip3", "install", "telethon"])
+import sys
+import os
+
+print("[INFO] Mengecek Telethon...")
+
+if importlib.util.find_spec("telethon") is None:
+    print("[INFO] Telethon belum ada. Menginstall...")
+    try:
+        subprocess.check_call(["$PIPCMD", "install", "--upgrade", "pip"])
+        subprocess.check_call(["$PIPCMD", "install", "telethon"])
+    except Exception as e:
+        print("[ERROR] Gagal install telethon:", e)
+        sys.exit(1)
 else:
     print("[INFO] Telethon sudah terinstall.")
 EOF
 
-# --- Jalankan Python Telethon ---
+
+# --- Jalankan Telethon untuk kirim ZIP ---
 python3 - << EOF
 import os, asyncio
 from telethon import TelegramClient, errors
