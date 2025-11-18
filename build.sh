@@ -5,24 +5,17 @@ rm -rf .repo/local_manifests
 
 # Remove tree
 rm -rf out
-rm -rf device/xiaomi/vayu
-rm -rf hardware/xiaomi
-rm -rf vendor/xiaomi/vayu
-rm -rf kernel/xiaomi/vayu
-rm -rf packages/apps/ViPER4AndroidFX
-
 echo "=================="
 echo "Remove old config success"
 echo "=================="
 
 #init
-repo init -u https://github.com/ArrowOS-T/android_manifest.git -b arrow-13.1_ext --depth=1
+repo init -u https://github.com/SuperiorExtended/manifest.git -b thirteen
 echo "=================="
 echo "Repo init success"
 echo "=================="
 #clone local
-git clone https://github.com/zackyape/script -b arrow .repo/local_manifests
-git clone https://github.com/TogoFire/packages_apps_ViPER4AndroidFX.git -b v4a packages/apps/ViPER4AndroidFX
+git clone https://github.com/Roynas-Android-Playground/local_manifests -b Exynos7885-new-thirteen .repo/local_manifests
 echo "=================="
 echo "Local manifests clone success"
 echo "=================="
@@ -41,8 +34,6 @@ echo "=================="
 # git clone --depth=1 https://github.com/pure-soul-kk/keys vendor/lineage-priv/keys
 
 #some stuffs
-sed -i 's/preprocessed: true,/\/\/ preprocessed: true, \/\/ Removed - unsupported/' \
-    packages/apps/ViPER4AndroidFX/Android.bp
 
 # Cari file libncurses
 LIBNCURSES=$(find /usr/lib /lib /usr/local/lib -name "libncurses.so.6*" 2>/dev/null | head -n 1)
@@ -87,6 +78,6 @@ export BUILD_HOSTNAME=crave
 
 #build
 . build/envsetup.sh
-lunch arrow_vayu-userdebug
+lunch superior_a30s-userdebug
 mka installclean
-m bacon
+m bacon -j$(nproc --all)
