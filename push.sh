@@ -1,46 +1,102 @@
 #!/bin/bash
-set -uo pipefail
 
-# === KONFIGURASI ===
-BOT_TOKEN="8197408884:AAFbP7Xmgd3prMPY04gGC5it2oIkxy6N17k"
-CHAT_ID="-1002024589954"
-FOLDER_PATH="out/target/product/vayu"   # contoh: /home/user/backups
+# ============================
+# KONFIGURASI — WAJIB DIISI
+# ============================
+API_ID=33849224               # ganti
+API_HASH="deb0f75259d603af48d9a227964ed35b"    # ganti
+FOLDER_PATH="/path/ke/folder"  # ganti
+TARGET="-1002024589954"                    # "me", username, @channel, atau chat id
+SESSION_NAME="telethon_session"
+CAPTION=""  # opsional, boleh dikosongkan
+# ============================
 
-# === KIRIM SEMUA .ZIP (TANPA LIMIT) ===
-shopt -s nullglob
-zip_files=("$FOLDER_PATH"/*.zip)
 
-if [ ${#zip_files[@]} -eq 0 ]; then
-    echo "Tidak ada file .zip dalam folder: $FOLDER_PATH"
-    exit 0
+# --- Pastikan Python & pip tersedia ---
+if ! command -v python3 &> /dev/null; then
+    echo "Python3 tidak ditemukan. Install dulu."
+    exit 1
 fi
 
-for file in "${zip_files[@]}"; do
-    if [ ! -f "$file" ]; then
-        continue
-    fi
+# --- Install Telethon jika belum ada ---
+echo "[INFO] Mengecek Telethon..."
+python3 - << 'EOF'
+import pkgutil
+import subprocess
+if not pkgutil.find_loader("telethon"):
+    print("[INFO] Telethon belum terpasang. Menginstall...")
+    subprocess.check_call(["pip3", "install", "telethon"])
+else:
+    print("[INFO] Telethon sudah terinstall.")
+EOF
 
-    echo "----------------------------"
-    echo "Mengirim: $file"
-    
-    # kirim file dan tampilkan body + http code untuk debug
-    response=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X POST "https://api.telegram.org/bot${BOT_TOKEN}/sendDocument" \
-        -F chat_id="${CHAT_ID}" \
-        -F document=@"${file}")
+# --- Jalankan Python Telethon ---
+python3 - << EOF
+import os, asyncio
+from telethon import TelegramClient, errors
 
-    echo "Response:"
-    echo "$response"
+API_ID = $API_ID
+API_HASH = "$API_HASH"
+FOLDER_PATH = "$FOLDER_PATH"
+TARGET = "$TARGET"
+SESSION_NAME = "$SESSION_NAME"
+CAPTION = "$CAPTION" if "$CAPTION" != "" else None
 
-    # cek field "ok" sederhana (tanpa jq)
-    ok=$(echo "$response" | sed -n 's/.*"ok":[[:space:]]*\([^,}]*\).*/\1/p' | tr -d ' ')
-    if [ "$ok" = "true" ]; then
-        echo "-> Upload sukses untuk: $file"
-    else
-        echo "-> Upload mungkin gagal untuk: $file (cek response di atas)"
-    fi
+def human(n):
+    for u in ['B','KB','MB','GB','TB']:
+        if n < 1024:
+            return f"{n:.1f}{u}"
+        n /= 1024
+    return f"{n:.1f}PB"
 
-    # jeda kecil supaya tidak spam (opsional)
-    sleep 1
-done
+async def main():
+    client = TelegramClient(SESSION_NAME, API_ID, API_HASH)
+    await client.start()
 
-echo "Selesai."
+    if not os.path.isdir(FOLDER_PATH):
+        print("Folder tidak ditemukan:", FOLDER_PATH)
+        return
+
+    files = [os.path.join(FOLDER_PATH,f) for f in os.listdir(FOLDER_PATH) if f.lower().endswith(".zip")]
+
+    if not files:
+        print("Tidak ada file .zip")
+        return
+
+    print(f"Menemukan {len(files)} file .zip")
+
+    for f in files:
+        size=os.path.getsize(f)
+        print("Mengirim:", f, f"({human(size)})")
+
+        last=-1
+        def progress(sent, total):
+            nonlocal last
+            if total != 0:
+                p = int(sent*100/total)
+                if p != last and p % 5 == 0:
+                    print(f"  {p}% ({human(sent)}/{human(total)})")
+                    last = p
+
+        try:
+            await client.send_file(
+                TARGET,
+                f,
+                caption=CAPTION,
+                progress_callback=progress,
+                force_document=True
+            )
+            print(" -> Sukses")
+        except errors.FloodWaitError as e:
+            print(f"Dibatasi Telegram, tunggu {e.seconds} detik...")
+            await asyncio.sleep(e.seconds)
+            continue
+        except Exception as e:
+            print("Error:", e)
+            continue
+
+    print("\\nSemua file diproses.")
+    await client.disconnect()
+
+asyncio.run(main())
+EOF
