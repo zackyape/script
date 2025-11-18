@@ -5,7 +5,7 @@
 # ============================
 API_ID=33849224               # ganti
 API_HASH="deb0f75259d603af48d9a227964ed35b"    # ganti
-FOLDER_PATH="/path/ke/folder"  # ganti
+FOLDER_PATH="out/target/product/vayu"  # ganti
 TARGET="-1002024589954"                    # "me", username, @channel, atau chat id
 SESSION_NAME="telethon_session"
 CAPTION=""  # opsional, boleh dikosongkan
