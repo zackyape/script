@@ -1,3 +1,3 @@
 ```
-cd arrow && crave run --no-patch -- "curl https://raw.githubusercontent.com/zackyape/script/refs/heads/arrow/build.sh | bash"
+curl -LSs https://raw.githubusercontent.com/zackyape/script/refs/heads/supex-a30s/build.sh | bash
 ```
