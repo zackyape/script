@@ -2,7 +2,7 @@
 
 # === CONFIG ===
 BOT_TOKEN="8197408884:AAFbP7Xmgd3prMPY04gGC5it2oIkxy6N17k"
-CHAT_ID="-1002024589954"
+CHAT_ID="5932470404"
 FOLDER_PATH="out/target/product/vayu"  
 
 # === Pussy ===
