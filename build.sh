@@ -15,7 +15,7 @@ echo "=================="
 echo "Repo init success"
 echo "=================="
 #clone local
-git clone https://github.com/Roynas-Android-Playground/local_manifests -b Exynos7885-new-thirteen .repo/local_manifests
+git clone https://github.com/Roynas-Android-Playground/local_manifests -b Exynos7885-new-fourteen .repo/local_manifests
 echo "=================="
 echo "Local manifests clone success"
 echo "=================="
