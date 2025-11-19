@@ -10,7 +10,7 @@ echo "Remove old config success"
 echo "=================="
 
 #init
-repo init -u https://github.com/SuperiorExtended/manifest.git -b thirteen
+repo init -u https://github.com/SuperiorExtended/manifest.git -b UDC --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
