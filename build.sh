@@ -10,7 +10,7 @@ echo "Remove old config success"
 echo "=================="
 
 #init
-repo init -u https://github.com/SuperiorExtended/manifest.git -b UDC --git-lfs
+repo init -u https://github.com/bananadroid/android_manifest.git -b 14 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
@@ -24,7 +24,7 @@ echo "=================="
 if [ -f /opt/crave/resync.sh ]; then
   /opt/crave/resync.sh
 else
-  repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+  repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
 fi
 echo "=================="
 echo "Sync success"
@@ -78,6 +78,6 @@ export BUILD_HOSTNAME=crave
 
 #build
 . build/envsetup.sh
-lunch superior_a30s-userdebug
+lunch banana_a30s-userdebug
 mka installclean
-m bacon -j$(nproc --all)
+m banana
