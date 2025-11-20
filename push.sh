@@ -23,7 +23,7 @@ if [ -z "$FILE_PATH" ]; then
 fi
 
 # Upload using rsync (recommended)
-rsync -avP "$FILE_PATH" \
+rsync -e "ssh -o StrictHostKeyChecking=accept-new"-avP "$FILE_PATH" \
     "$USER@frs.sourceforge.net:/home/frs/project/$PROJECT/$REMOTE_DIR/"
 
 echo "Upload complete!"
