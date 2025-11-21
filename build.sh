@@ -14,6 +14,9 @@ repo init -u https://github.com/bananadroid/android_manifest.git -b 14 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
+
+sed -i 's/<project path="hardware/samsung" name="android_hardware_samsung" remote="banana" />/<remove-project name="android_hardware_samsung"/>/g' .repo/manifests/banana.xml
+
 #clone local
 git clone https://github.com/Roynas-Android-Playground/local_manifests -b Exynos7885-new-fourteen .repo/local_manifests
 echo "=================="
