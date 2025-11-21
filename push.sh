@@ -1,29 +1,23 @@
 #!/bin/bash
 
-# ------------------------------
-# SourceForge Upload Script
-# ------------------------------
-
-# Your SourceForge project name (NOT the URL)
-PROJECT="AOSP"
-
-# Your SF username
+# ==== CONFIG ====
 USER="zsheesh"
+PROJECT="AOSP"
+REMOTE_DIR="AOSP/vayu"      # contoh: "ROM/Build-1"
+FILE_PATH="out/target/product/vayu/Arrow-v13.1_ext-vayu-20251117-vanilla.zip"   # contoh: "/home/user/rom.zip"
 
-# Local file or directory to upload
-FILE_PATH="out/target/product/vayu/Arrow-v13.1_ext-vayu-20251117-vanilla.zip"
+# ==== UPLOAD ====
+echo "[INFO] Uploading file ke SourceForge..."
 
-# Remote folder inside your FRS project
-REMOTE_DIR="vayu"
+rsync -avP \
+    -e "ssh -o StrictHostKeyChecking=accept-new" \
+    "$FILE_PATH" \
+    "$USER@frs.sourceforge.net:/home/frs/project/$PROJECT/$REMOTE_DIR/"
 
-# Exit if no file provided
-if [ -z "$FILE_PATH" ]; then
-    echo "Usage: ./upload-sf.sh <file_or_directory>"
-    exit 1
+STATUS=$?
+
+if [ $STATUS -eq 0 ]; then
+    echo "[INFO] Upload selesai!"
+else
+    echo "[ERROR] Upload gagal dengan kode: $STATUS"
 fi
-
-# Upload using rsync (recommended)
-rsync -avP -e 'ssh -o StrictHostKeyChecking=accept-new' \
-  "$FILE_PATH" "$USER@frs.sourceforge.net:/home/frs/project/$PROJECT/$REMOTE_DIR/"
-
-echo "Upload complete!"
