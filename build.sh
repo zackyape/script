@@ -81,6 +81,6 @@ export BUILD_HOSTNAME=crave
 
 #build
 . build/envsetup.sh
-lunch banana_a30s-userdebug
+lunch banana_a30s-ap2a-userdebug
 mka installclean
 m banana
