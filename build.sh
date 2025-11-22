@@ -18,7 +18,7 @@ echo "=================="
 sed -i '/<project path="hardware\/samsung" name="android_hardware_samsung" remote="banana" \/>/d' ".repo/manifests/banana.xml"
 
 #clone local
-git clone https://github.com/Roynas-Android-Playground/local_manifests -b Exynos7885-new-fourteen .repo/local_manifests
+git clone https://github.com/Roynas-Android-Playground/local_manifests -b Exynos7885-fourteen .repo/local_manifests
 echo "=================="
 echo "Local manifests clone success"
 echo "=================="
