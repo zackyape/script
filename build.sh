@@ -15,7 +15,7 @@ echo "=================="
 echo "Repo init success"
 echo "=================="
 
-sed -i 's/<project path="hardware/samsung" name="android_hardware_samsung" remote="banana" />/<remove-project name="android_hardware_samsung"/>/g' .repo/manifests/banana.xml
+sed -i '/<project path="hardware\/samsung" name="android_hardware_samsung" remote="banana" \/>/d' ".repo/manifests/banana.xml"
 
 #clone local
 git clone https://github.com/Roynas-Android-Playground/local_manifests -b Exynos7885-new-fourteen .repo/local_manifests
