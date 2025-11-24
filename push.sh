@@ -3,11 +3,12 @@
 ### =======================
 ### KONFIGURASI
 ### =======================
-SF_USER="zsheesh"               # username SourceForge
-SF_API_KEY="d9ba1acb-6931-4b2d-8dab-e81b6cf8510c"
-SF_PROJECT="zsheesh-release"
-SF_REMOTE_DIR="vayu"
-FILE_PATH="out/target/product/vayu/Arrow-v13.1_ext-vayu-20251117-vanilla.zip"                  # file untuk upload via argumen
+SF_USER="zsheesh"                       # username SourceForge
+SF_API_KEY="d9ba1acb-6931-4b2d-8dab-e81b6cf8510c"   # API key langsung di script
+SF_PROJECT="AOSP"            # nama project
+SF_REMOTE_DIR="vayu"                    # folder tujuan upload
+FILE_PATH="out/target/product/vayu/Arrow-v13.1_ext-vayu-20251117-vanilla.zip"                          # file dari argumen
+
 
 ### =======================
 ### CEK FILE
@@ -17,6 +18,7 @@ if [[ -z "$FILE_PATH" || ! -f "$FILE_PATH" ]]; then
     echo "Cara pakai: $0 /path/ke/file.zip"
     exit 1
 fi
+
 
 ### =======================
 ### GENERATE SSH KEY JIKA BELUM ADA
@@ -38,43 +40,59 @@ chmod 644 "$PUB_KEY_PATH"
 
 PUBLIC_KEY=$(cat "$PUB_KEY_PATH")
 
-### =======================
-### DAFTARKAN SSH KEY KE SOURCEFORGE (AUTO)
-### =======================
-echo "[INFO] Menambahkan SSH key ke SourceForge via API..."
 
-curl -s \
+### =======================
+### KIRIM SSH KEY KE SOURCEFORGE
+### =======================
+echo "[INFO] Mengirim SSH key ke SourceForge..."
+
+API_RESPONSE=$(curl -s -w "%{http_code}" \
     -u "$SF_USER:$SF_API_KEY" \
     -H "Content-Type: application/json" \
     -X POST \
-    -d "{\"key\": \"$PUBLIC_KEY\", \"description\": \"auto-added-by-script\"}" \
-    https://sourceforge.net/rest/u/$SF_USER/ssh_keys/add >/dev/null
+    -d "{\"key\": \"$PUBLIC_KEY\", \"description\": \"auto-upload-key\"}" \
+    "https://sourceforge.net/rest/u/$SF_USER/ssh_keys/add")
 
-echo "[INFO] SSH key berhasil dikirim ke SourceForge."
+HTTP_CODE="${API_RESPONSE: -3}"
+
+if [[ "$HTTP_CODE" != "200" && "$HTTP_CODE" != "201" ]]; then
+    echo "[ERROR] Gagal mengirim SSH key ke SourceForge! HTTP code: $HTTP_CODE"
+    exit 1
+fi
+
+echo "[INFO] SSH key berhasil dikirim."
+
 
 ### =======================
-### TEST KONEKSI SSH TANPA PASSWORD
+### TEST KONEKSI SSH (ADA DELAY 2–5 MENIT)
 ### =======================
-echo "[INFO] Mengetes koneksi SSH..."
+echo "[INFO] Menunggu aktivasi SSH key di SourceForge..."
 
-ssh -o StrictHostKeyChecking=accept-new \
-    -o BatchMode=yes \
-    "$SF_USER@frs.sourceforge.net" "exit" 2>/dev/null
+for i in {1..10}; do
+    ssh -o StrictHostKeyChecking=accept-new \
+        -o BatchMode=yes \
+        -i "$KEY_PATH" \
+        "$SF_USER@frs.sourceforge.net" "exit" 2>/dev/null && break
 
-if [[ $? -ne 0 ]]; then
-    echo "[ERROR] SSH masih minta password — cek API key atau username!"
+    echo "[WAIT] Menunggu 15 detik... (percobaan $i/10)"
+    sleep 15
+done
+
+if [[ $i -eq 10 ]]; then
+    echo "[ERROR] SSH key belum aktif setelah beberapa percobaan."
     exit 1
 fi
 
 echo "[INFO] SSH OK tanpa password."
 
+
 ### =======================
-### UPLOAD FILE VIA RSYNC
+### UPLOAD VIA RSYNC
 ### =======================
 echo "[INFO] Mengupload file ke SourceForge..."
 
 rsync -avP \
-    -e "ssh -o StrictHostKeyChecking=accept-new" \
+    -e "ssh -i $KEY_PATH -o StrictHostKeyChecking=accept-new" \
     "$FILE_PATH" \
     "$SF_USER@frs.sourceforge.net:/home/frs/project/$SF_PROJECT/$SF_REMOTE_DIR/"
 
