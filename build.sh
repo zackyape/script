@@ -2,7 +2,6 @@
 
 #removals
 rm -rf .repo/local_manifests
-rm -rf .repo/manifests
 rm -rf device/samsung
 rm -rf vendor/samsung
 rm -rf kernel/samsung
@@ -84,6 +83,7 @@ ls -la "$LIBDIRTINFO/libtinfo.so.5"
 
 export BUILD_USERNAME=zsheesh
 export BUILD_HOSTNAME=crave
+export BANANA_MAINTAINER=zsheesh
 
 #build
 . build/envsetup.sh
