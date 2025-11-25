@@ -2,6 +2,13 @@
 
 #removals
 rm -rf .repo/local_manifests
+rm -rf device/samsung
+rm -rf vendor/samsung
+rm -rf kernel/samsung
+rm -rf hardware/samsung
+rm -rf hardware/samsung_slsi-linaro
+rm -rf device/samsung_slsi/sepolicy
+rm -rf hardware/samsung-ext
 
 # Remove tree
 rm -rf out
