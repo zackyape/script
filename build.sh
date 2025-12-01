@@ -2,7 +2,7 @@
 
 #removals
 rm -rf *
-rm -rf .repo/local_maifests
+rm -rf .repo/local_manifests
 echo "=================="
 echo "Remove old config success"
 echo "=================="
