@@ -7,15 +7,13 @@ echo "Remove old config success"
 echo "=================="
 
 #init
-repo init -u https://github.com/bananadroid/android_manifest.git -b 14 --git-lfs
+repo init -u https://github.com/Havoc-OS/android_manifest.git -b thirteen --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
-sed -i '/<project path="hardware\/samsung" name="android_hardware_samsung" remote="banana" \/>/d' ".repo/manifests/banana.xml"
-
 #clone local
-git clone https://github.com/zackyape/local_manifests_samsung -b Exynos7885-new-fourteen .repo/local_manifests
+git clone https://github.com/zackyape/local_manifests_samsung -b Exynos7885-new-thirteen .repo/local_manifests
 echo "=================="
 echo "Local manifests clone success"
 echo "=================="
@@ -78,7 +76,5 @@ export BUILD_HOSTNAME=crave
 
 #build
 . build/envsetup.sh
-m clean
-lunch banana_a30s-userdebug
 mka installclean
-m banana
+brunch a30s
