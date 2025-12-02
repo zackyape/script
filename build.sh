@@ -2,6 +2,7 @@
 
 #removals
 rm -rf *
+rm -rf .repo/local_manifests
 echo "=================="
 echo "Remove old config success"
 echo "=================="
@@ -76,5 +77,4 @@ export BUILD_HOSTNAME=crave
 
 #build
 . build/envsetup.sh
-mka installclean
 brunch a30s
