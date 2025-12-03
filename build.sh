@@ -15,7 +15,7 @@ echo "=================="
 
 sed -i '/<project path="hardware\/samsung" name="android_hardware_samsung" remote="banana" \/>/d' ".repo/manifests/banana.xml"
 rm -rf .repo/manifests/external.xml
-sed -i '\#<include name="external.xml"#d'".repo/manifests/default.xml"
+sed -i '/<include name="external.xml" \/>/d' ".repo/manifests/default.xml"
 
 #clone local
 git clone https://github.com/zackyape/local_manifests_samsung -b Exynos7885-new-fourteen .repo/local_manifests
