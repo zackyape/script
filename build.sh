@@ -14,6 +14,8 @@ echo "Repo init success"
 echo "=================="
 
 sed -i '/<project path="hardware\/samsung" name="android_hardware_samsung" remote="banana" \/>/d' ".repo/manifests/banana.xml"
+rm -rf .repo/manifests/external.xml
+sed -i '\#<include name="external.xml"#d'".repo/manifests/default.xml"
 
 #clone local
 git clone https://github.com/zackyape/local_manifests_samsung -b Exynos7885-new-fourteen .repo/local_manifests
@@ -67,12 +69,12 @@ sudo ln -sf "$LIBTINFO" "$LIBDIRTINFO/libtinfo.so.5"
 
 echo "Symlink dibuat: $LIBDIRTINFO/libtinfo.so.5 -> $LIBTINFO"
 
-# Update ldconfig
 sudo ldconfig
 
-# Verifikasi
 ls -la "$LIBDIRNCURSES/libncurses.so.5"
 ls -la "$LIBDIRTINFO/libtinfo.so.5"
+
+echo "=========SUCCESS========="
 
 export BUILD_USERNAME=zsheesh
 export BUILD_HOSTNAME=crave
