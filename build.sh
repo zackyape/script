@@ -74,6 +74,7 @@ ls -la "$LIBDIRTINFO/libtinfo.so.5"
 
 export BUILD_USERNAME=zsheesh
 export BUILD_HOSTNAME=crave
+rm -rf vendor/qcom/opensource/vibrator/aidl
 
 #build
 . build/envsetup.sh
