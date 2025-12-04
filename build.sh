@@ -76,6 +76,35 @@ ls -la "$LIBDIRTINFO/libtinfo.so.5"
 
 echo "=========SUCCESS========="
 
+echo "==========================================="
+echo "🔍 Mengecek module 'kernel-config-soong-rules'"
+echo "==========================================="
+
+# Pastikan berjalan dari root source AOSP
+if [ ! -f "build/envsetup.sh" ]; then
+    echo "❗ Error: Jalankan script ini dari root source AOSP (yang ada build/envsetup.sh)"
+fi
+
+echo "➡️  Mencari di seluruh tree..."
+RESULT=$(grep -R "kernel-config-soong-rules" -n . | grep -v "Binary file")
+
+if [ -z "$RESULT" ]; then
+    echo ""
+    echo "❌ Module 'kernel-config-soong-rules' TIDAK ditemukan di tree!"
+    echo "   ➜ Artinya Soong tidak memiliki module tersebut."
+    echo "   ➜ Ini yang menyebabkan error di hardware/interfaces."
+    echo ""
+else
+    echo ""
+    echo "✅ Module ditemukan!"
+    echo "-------------------------------------------"
+    echo "$RESULT"
+    echo "-------------------------------------------"
+    echo ""
+    echo "Jika module ditemukan di file lain tetapi build masih error,"
+    echo "kemungkinan module tidak diregister sebagai module soong."
+fi
+
 export BUILD_USERNAME=zsheesh
 export BUILD_HOSTNAME=crave
 
