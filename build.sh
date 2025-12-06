@@ -13,14 +13,8 @@ echo "=================="
 echo "Repo init success"
 echo "=================="
 
-sed -i '/<project path="hardware\/samsung" name="android_hardware_samsung" remote="banana" \/>/d' ".repo/manifests/banana.xml"
-rm -rf .repo/manifests/external.xml
-sed -i '/<include name="external.xml" \/>/d' ".repo/manifests/default.xml"
-sed -i '/<remove-project name="kernel\/configs" \/>/d' ".repo/manifests/remove.xml"
-
-
 #clone local
-git clone https://github.com/zackyape/local_manifests_samsung -b Exynos7885-new-fourteen .repo/local_manifests
+git clone https://github.com/zackyape/script -b banana .repo/local_manifests
 echo "=================="
 echo "Local manifests clone success"
 echo "=================="
@@ -83,7 +77,5 @@ export BUILD_HOSTNAME=crave
 
 #build
 . build/envsetup.sh
-m clean
 lunch banana_a30s-userdebug
-mka installclean
 m banana

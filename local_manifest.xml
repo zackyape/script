@@ -1,65 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-        <remote name="me"
-          fetch="https://github.com/zackyape"
-        <remote name="lineage-cp"
-                fetch="https://github.com/LineageOS"
-		review="review.lineageos.org"
-		revision="lineage-21"/>
-        <remote name="royna"
-                fetch="https://github.com/Roynas-Android-Playground"
-		revision="fourteen"/>
-	<remote name="slsi-linaro"
-		fetch="https://github.com/LineageOS"
-		review="review.lineageos.org"
-		revision="lineage-21"/>
 
-        <!-- Devices -->
-	<project path="device/samsung/a10" name="device_samsung_a10" remote="royna"/>
-	<project path="device/samsung/a20" name="device_samsung_a20" remote="royna"/>
-	<project path="device/samsung/a20e" name="device_samsung_a20e" remote="royna"/>
-	<project path="device/samsung/a30" name="device_samsung_a30" remote="royna"/>
-	<project path="device/samsung/a30s" name="device_samsung_a30s_banana" remote="me"/>
-	<project path="device/samsung/a40" name="device_samsung_a40" remote="royna"/>
-	<project path="device/samsung/exynos7885-common" name="device_samsung_exynos7885-common" remote="royna"/>
+  <!-- Remotes -->
+  <remote name="lineg" fetch="https://github.com/LineageOS" />
+  <remote name="royna" fetch="https://github.com/Roynas-Android-Playground" />
+  <remote name="zacky" fetch="https://github.com/zackyape" />
+  <remote name="eureka" fetch="https://github.com/eurekadevelopment" />
 
-        <!-- Kernel -->
-	<project path="kernel/samsung/exynos7885" name="kernel_samsung_exynos7885" recurse_submodules="true" remote="royna" revision="EurekaV2" />
+  <!-- Remove Projects -->
+  <remove-project path="hardware/samsung" />
 
-        <!-- Vendors -->
-	<project path="vendor/samsung/a10" name="vendor_samsung_a10" remote="royna"/>
-	<project path="vendor/samsung/a20" name="vendor_samsung_a20" remote="royna"/>
-	<project path="vendor/samsung/a20e" name="vendor_samsung_a20e" remote="royna"/>
-	<project path="vendor/samsung/a30" name="vendor_samsung_a30" remote="royna"/>
-	<project path="vendor/samsung/a30s" name="vendor_samsung_a30s" remote="royna"/>
-	<project path="vendor/samsung/a40" name="vendor_samsung_a40" remote="royna"/>
-	<project path="vendor/samsung/exynos7885-common" name="vendor_samsung_exynos7885-common" remote="royna"/>
+  <!-- Projects -->
+  <project path="device/samsung/a30s" name="device_samsung_a30s" remote="zacky" revision="fourteen" />
+  <project path="device/samsung/exynos7885-common" name="device_samsung_exynos7885-common" remote="zacky" revision="fourteen" />
+  <project path="kernel/samsung/exynos7885" name="kernel_samsung_exynos7885" remote="royna" revision="EurekaV2" />
+  <project path="vendor/samsung/a30s" name="vendor_samsung_a30s" remote="zacky" revision="fourteen" />
+  <project path="endor/samsung/exynos7885-common" name="vendor_samsung_exynos7885-common" remote="zacky" revision="fourteen" />
+  <project path="hardware/samsung_slsi/libbt" name="android_hardware_samsung_slsi_libbt" remote="lineg" revision="lineage-21" />
+  <project path="hardware/samsung_slsi/scsc_wifibt/wifi_hal" name="android_hardware_samsung_slsi_scsc_wifibt_wifi_hal" remote="lineg" revision="lineage-21" />
+  <project path="hardware/samsung_slsi/scsc_wifibt/wpa_supplicant_lib" name="android_hardware_samsung_slsi_scsc_wifibt_wpa_supplicant_lib" remote="lineg" revision="lineage-21" />
+  <project path="hardware/samsung_slsi-linaro/graphics" name="android_hardware_samsung_slsi-linaro_graphics" remote="eureka" revision="lineage-21" />
+  <project path="hardware/samsung_slsi-linaro/exynos" name="android_hardware_samsung_slsi-linaro_exynos" remote="eureka" revision="lineage-21" />
+  <project path="hardware/samsung_slsi-linaro/config" name="android_hardware_samsung_slsi-linaro_config" remote="eureka" revision="lineage-21" />
+  <project path="hardware/samsung_slsi-linaro/openmax" name="android_hardware_samsung_slsi-linaro_openmax" remote="eureka" revision="lineage-21" />
+  <project path="ardware/samsung_slsi-linaro/interfaces" name="android_hardware_samsung_slsi-linaro_interfaces" remote="eureka" revision="lineage-21" />
+  <project path="hardware/samsung" name="android_hardware_samsung" remote="royna" revision="fourteen" />
+  <project path="device/samsung_slsi/sepolicy" name="android_device_samsung_slsi_sepolicy" remote="royna" revision="lineage-21" />
+  <project path="hardware/samsung-ext/interfaces" name="hardware_samsung-extra_interfaces" remote="royna" revision="lineage-21" />
 
-        <!-- LineageOS -->
-        <project path="hardware/samsung_slsi/libbt"
-                 name="android_hardware_samsung_slsi_libbt"
-                 remote="lineage-cp"/>
-        <project path="hardware/samsung_slsi/scsc_wifibt/wifi_hal"
-                 name="android_hardware_samsung_slsi_scsc_wifibt_wifi_hal"
-                 remote="lineage-cp" />
-        <project path="hardware/samsung_slsi/scsc_wifibt/wpa_supplicant_lib"
-                 name="android_hardware_samsung_slsi_scsc_wifibt_wpa_supplicant_lib"
-                 remote="lineage-cp" />
-
-        <!-- SLSI Linaro -->
-	<project path="hardware/samsung_slsi-linaro/graphics"
-                 name="android_hardware_samsung_slsi-linaro_graphics" remote="slsi-linaro" />
-        <project path="hardware/samsung_slsi-linaro/exynos"
-                 name="android_hardware_samsung_slsi-linaro_exynos" remote="slsi-linaro" />
-        <project path="hardware/samsung_slsi-linaro/config"
-                 name="android_hardware_samsung_slsi-linaro_config" remote="slsi-linaro" />
-        <project path="hardware/samsung_slsi-linaro/openmax"
-                 name="android_hardware_samsung_slsi-linaro_openmax" remote="slsi-linaro" />
-        <project path="hardware/samsung_slsi-linaro/interfaces"
-                 name="android_hardware_samsung_slsi-linaro_interfaces" remote="slsi-linaro" />
-	
-        <!-- Royna's forks and repos -->
-        <project path="hardware/samsung" name="android_hardware_samsung" remote="royna"/>
-        <project path="device/samsung_slsi/sepolicy" name="android_device_samsung_slsi_sepolicy" remote="royna" revision="lineage-21"/>
-        <project path="hardware/samsung-ext/interfaces" name="hardware_samsung-extra_interfaces" remote="royna" revision="lineage-21"/>
 </manifest>
