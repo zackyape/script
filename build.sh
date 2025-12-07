@@ -8,13 +8,13 @@ echo "Remove old config success"
 echo "=================="
 
 #init
-repo init -u https://github.com/Havoc-OS/android_manifest.git -b thirteen --git-lfs
+repo init -u https://github.com/bananadroid/android_manifest.git -b 13-qpr3 --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #clone local
-git clone https://github.com/zackyape/local_manifests_samsung -b Exynos7885-new-thirteen .repo/local_manifests
+git clone https://github.com/zackyape/script -b banana-13 .repo/local_manifests
 echo "=================="
 echo "Local manifests clone success"
 echo "=================="
@@ -74,8 +74,8 @@ ls -la "$LIBDIRTINFO/libtinfo.so.5"
 
 export BUILD_USERNAME=zsheesh
 export BUILD_HOSTNAME=crave
-rm -rf vendor/qcom/opensource/vibrator/aidl
 
 #build
 . build/envsetup.sh
-brunch a30s
+lunch banana_a30s-userdebug
+m banana
