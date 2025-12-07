@@ -4,12 +4,13 @@
   <!-- Remotes -->
   <remote name="lineg" fetch="https://github.com/LineageOS" />
   <remote name="royna" fetch="https://github.com/Roynas-Android-Playground" />
+  <remote name="zacky" fetch="https://github.com/zackyape" />
 
   <!-- Remove Projects -->
   <remove-project path="hardware/samsung" />
 
   <!-- Projects -->
-  <project path="device/samsung/a30s" name="device_samsung_a30s" remote="royna" revision="fourteen" />
+  <project path="device/samsung/a30s" name="device_samsung_a30s" remote="zacky" revision="fourteen" />
   <project path="device/samsung/exynos7885-common" name="device_samsung_exynos7885-common" remote="royna" revision="fourteen" />
   <project path="kernel/samsung/exynos7885" name="kernel_samsung_exynos7885" remote="royna" revision="EurekaV2" />
   <project path="vendor/samsung/a30s" name="vendor_samsung_a30s" remote="royna" revision="fourteen" />
