@@ -23,6 +23,7 @@
   <project path="hardware/samsung_slsi-linaro/config" name="android_hardware_samsung_slsi-linaro_config" remote="lineg" revision="lineage-21" />
   <project path="hardware/samsung_slsi-linaro/openmax" name="android_hardware_samsung_slsi-linaro_openmax" remote="lineg" revision="lineage-21" />
   <project path="hardware/samsung_slsi-linaro/interfaces" name="android_hardware_samsung_slsi-linaro_interfaces" remote="lineg" revision="lineage-21" />
+  <project path="device/lineage/sepolicy" name="android_device_lineage_sepolicy" remote="lineg" revision="lineage-21.0" />
   <project path="hardware/samsung" name="android_hardware_samsung" remote="royna" revision="fourteen" />
   <project path="device/samsung_slsi/sepolicy" name="android_device_samsung_slsi_sepolicy" remote="royna" revision="lineage-21" />
   <project path="hardware/samsung-ext/interfaces" name="hardware_samsung-extra_interfaces" remote="royna" revision="lineage-21" />
