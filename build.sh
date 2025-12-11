@@ -8,13 +8,13 @@ echo "Remove old config success"
 echo "=================="
 
 #init
-repo init -u https://github.com/bananadroid/android_manifest.git -b 14 --git-lfs
+repo init -u https://github.com/SuperiorExtended/manifest -b UDC --git-lfs
 echo "=================="
 echo "Repo init success"
 echo "=================="
 
 #clone local
-git clone https://github.com/zackyape/script -b banana .repo/local_manifests
+git clone https://github.com/zackyape/script -b supex-14 .repo/local_manifests
 echo "=================="
 echo "Local manifests clone success"
 echo "=================="
@@ -77,5 +77,5 @@ export BUILD_HOSTNAME=crave
 
 #build
 . build/envsetup.sh
-lunch banana_a30s-userdebug
-m banana
+lunch superior_a30s-userdebug
+mka bacon

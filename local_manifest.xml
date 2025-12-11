@@ -6,10 +6,7 @@
   <remote name="royna" fetch="https://github.com/Roynas-Android-Playground" />
   <remote name="zacky" fetch="https://github.com/zackyape" />
   <remote name="eureka" fetch="https://github.com/eurekadevelopment" />
-
-  <!-- Remove Projects -->
-  <remove-project path="hardware/samsung" />
-
+  
   <!-- Projects -->
   <project path="device/samsung/a30s" name="device_samsung_a30s" remote="zacky" revision="fourteen" />
   <project path="device/samsung/exynos7885-common" name="device_samsung_exynos7885-common" remote="zacky" revision="fourteen" />
