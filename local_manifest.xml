@@ -5,7 +5,7 @@
   <remote name="lineg" fetch="https://github.com/LineageOS" />
   <remote name="royna" fetch="https://github.com/Roynas-Android-Playground" />
   <remote name="zacky" fetch="https://github.com/zackyape" />
-  <remote name="eureka" fetch="https://github.com/eurekadevelopment">
+  <remote name="eureka" fetch="https://github.com/eurekadevelopment" />
 
   <!-- Remove Projects -->
   <remove-project path="hardware/samsung" />
